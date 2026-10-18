@@ -1,0 +1,92 @@
+/* Contradictome Custom Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #030712;
+  color: #f8fafc;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0f19;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Tab Switching States */
+.active-tab {
+  background: rgba(14, 165, 233, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+.inactive-tab {
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid transparent;
+}
+.inactive-tab:hover {
+  background: rgba(30, 41, 59, 0.6);
+  color: #f1f5f9;
+}
+
+/* Filter buttons */
+.active-filter {
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
+  border-color: #38bdf8 !important;
+}
+
+/* Cytoscape & SVG Canvas Container */
+#cy {
+  width: 100%;
+  height: 100%;
+  min-height: 560px;
+  position: relative;
+  display: block;
+}
+
+/* Selected SVG Node styling */
+.selected-svg-node circle {
+  stroke: #ffffff !important;
+  stroke-width: 4px !important;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
+}
+.selected-svg-node rect {
+  stroke: #ffffff !important;
+  stroke-width: 4px !important;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9));
+}
+
+.svg-node:hover {
+  filter: brightness(1.2);
+}
+
+/* Node pulse effects */
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.03); }
+}
+
+.pulsing-badge {
+  animation: subtle-pulse 2s infinite ease-in-out;
+}
+
+/* Decision tree item accents */
+.decision-card-pro {
+  border-left: 3px solid #10b981;
+  background: rgba(16, 185, 129, 0.05);
+}
+.decision-card-con {
+  border-left: 3px solid #f43f5e;
+  background: rgba(244, 63, 94, 0.05);
+}

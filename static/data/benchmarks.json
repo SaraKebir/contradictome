@@ -1,0 +1,375 @@
+{
+  "benchmarks": [
+    {
+      "id": "metformin_longevity",
+      "title": "Metformin & Mammalian Longevity",
+      "domain": "Aging & Metabolism",
+      "hypothesis": "Chronic Metformin administration extends healthy lifespan in non-diabetic mammals via AMPK activation and caloric restriction mimetics.",
+      "consensus_score": 42,
+      "consensus_label": "High Controversy / Disputed",
+      "pro_count": 4,
+      "con_count": 3,
+      "boundary_count": 2,
+      "summary": "Metformin reliably extends lifespan in nematode (C. elegans) models by altering microbial folate metabolism, but landmark multi-center mammalian studies (e.g., NIA Interventions Testing Program) observed no significant lifespan extension in healthy normoglycemic male mice, revealing severe species- and metabolic-state dependency.",
+      "root_contradiction": "Discrepancy is driven by: (1) indirect microbiome-mediated effects in invertebrates vs. direct hepatic metabolism in mammals; (2) baseline metabolic health—metformin protects against hyperinsulinemic and diabetic damage but provides no benefit or slight mitochondrial toxicity in metabolically optimal wild-type animals; and (3) dosing variations causing lactic acidosis.",
+      "papers": [
+        {
+          "id": "P1",
+          "title": "Metformin promotes lifespan through mitohormesis via the lysosomal pathway in C. elegans",
+          "authors": "Cabreiro, F., Au, C., Leung, K. Y., et al.",
+          "year": 2013,
+          "journal": "Cell",
+          "doi": "10.1016/j.cell.2013.02.035",
+          "citations": 1120,
+          "stance": "PRO",
+          "claim": "Metformin treatment significantly increases median lifespan (by ~20-30%) in C. elegans by perturbing bacterial folate and methionine metabolism.",
+          "strength": "High",
+          "evidence_quote": "Metformin-induced longevity is dependent on the co-cultured E. coli microbiome, altering microbial methionine and folate cycles to induce dietary restriction.",
+          "factors": {
+            "model_system": "C. elegans (monoxenic culture with E. coli OP50)",
+            "intervention": "50 mM Metformin in agar plates",
+            "readout": "Median and maximum survival curves (days)",
+            "confounders": "Non-mammalian host; obligate dependence on bacterial metabolism"
+          }
+        },
+        {
+          "id": "P2",
+          "title": "Metformin improves healthspan and lifespan in male mice",
+          "authors": "Martin-Montalvo, A., Mercken, E. M., Mitchell, S. J., et al.",
+          "year": 2013,
+          "journal": "Nature Communications",
+          "doi": "10.1038/ncomms3192",
+          "citations": 1450,
+          "stance": "PRO",
+          "claim": "0.1% w/w dietary metformin extended mean lifespan by 5.83% in male C57BL/6 mice and improved physical performance.",
+          "strength": "Moderate",
+          "evidence_quote": "Treatment of male C57BL/6 mice with 0.1% metformin extended mean lifespan by 5.83% and increased insulin sensitivity while lowering LDL.",
+          "factors": {
+            "model_system": "Inbred male C57BL/6 mice (single sex, single strain)",
+            "intervention": "0.1% w/w metformin in standard chow",
+            "readout": "Mean lifespan, rotorod performance, serum biomarkers",
+            "confounders": "Single-sex cohort; tested at a single institution; high-dose cohort (1%) suffered early toxic mortality"
+          }
+        },
+        {
+          "id": "P3",
+          "title": "Metformin failed to extend lifespan in genetically heterogeneous male and female mice: The NIA Interventions Testing Program",
+          "authors": "Strong, R., Miller, R. A., Antebi, A., et al.",
+          "year": 2016,
+          "journal": "Aging Cell",
+          "doi": "10.1111/acel.12510",
+          "citations": 680,
+          "stance": "CON",
+          "claim": "Metformin across three independent testing sites did not significantly extend median or maximum lifespan in genetically diverse UM-HET3 mice.",
+          "strength": "High",
+          "evidence_quote": "Metformin tested at 0.1% in chow across three independent laboratories produced no statistically significant increase in lifespan in either male or female UM-HET3 mice.",
+          "factors": {
+            "model_system": "Genetically heterogeneous UM-HET3 mice (both sexes, 3 independent sites)",
+            "intervention": "0.1% w/w metformin in diet started at 9 months of age",
+            "readout": "Statistical log-rank survival analysis across 3 replicated cohorts",
+            "confounders": "Dose was fixed rather than calibrated by circulating plasma levels"
+          }
+        },
+        {
+          "id": "P4",
+          "title": "Metformin inhibits mitochondrial complex I and impairs exercise-induced adaptations in healthy older adults",
+          "authors": "Konopka, A. R., Murphy, P. M., Chandrasekaran, P., et al.",
+          "year": 2019,
+          "journal": "Aging Cell",
+          "doi": "10.1111/acel.12880",
+          "citations": 410,
+          "stance": "CON",
+          "claim": "Metformin blunts the cardioprotective and mitochondrial respiratory gains achieved via aerobic exercise training in healthy normoglycemic seniors.",
+          "strength": "High",
+          "evidence_quote": "Metformin attenuated the exercise-mediated increase in whole-body insulin sensitivity and skeletal muscle mitochondrial respiration.",
+          "factors": {
+            "model_system": "Human healthy older adults (normoglycemic)",
+            "intervention": "Metformin 1000 mg/day vs placebo paired with 12 weeks aerobic training",
+            "readout": "Skeletal muscle biopsy mitochondrial respiration, VO2 max",
+            "confounders": "Short 12-week intervention; focused on functional capacity rather than decades-long mortality"
+          }
+        },
+        {
+          "id": "P5",
+          "title": "Metformin as a tool to target aging: The TAME (Targeting Aging with Metformin) framework",
+          "authors": "Barzilai, N., Crandall, J. P., Kritchevsky, S. B., Espeland, M. A.",
+          "year": 2016,
+          "journal": "Cell Metabolism",
+          "doi": "10.1016/j.cmet.2016.05.011",
+          "citations": 980,
+          "stance": "BOUNDARY",
+          "claim": "Metformin's apparent healthspan benefits in humans are largely observed in pre-diabetic or metabolically challenged individuals, modulating age-related multimorbidity rather than basal biological aging in healthy individuals.",
+          "strength": "Moderate",
+          "evidence_quote": "The epidemiological evidence in humans primarily reflects reduction of secondary chronic disease incidence in populations with pre-existing metabolic dysfunction.",
+          "factors": {
+            "model_system": "Retrospective human clinical cohort analysis and proposed trial design",
+            "intervention": "Metformin 1500-2000 mg/day vs placebo",
+            "readout": "Time-to-first major age-related chronic disease (CVD, cancer, dementia)",
+            "confounders": "Observational confounding by indication in historical cohorts"
+          }
+        }
+      ],
+      "factor_matrix": {
+        "headers": ["Study", "Stance", "Model Organism", "Baseline Metabolic State", "Dosage / Exposure", "Observed Outcome", "Primary Confounder"],
+        "rows": [
+          ["Cabreiro et al. (2013)", "PRO", "C. elegans", "Standard bacterial diet", "50 mM in agar", "+20-30% lifespan extension", "Microbiome folate dependency"],
+          ["Martin-Montalvo (2013)", "PRO", "C57BL/6 Mice (Males)", "Inbred / Standard chow", "0.1% diet", "+5.8% mean lifespan", "Single inbred strain, single site"],
+          ["NIA ITP (2016)", "CON", "UM-HET3 Mice (Both sexes)", "Heterogeneous / Multi-site", "0.1% diet", "No significant lifespan change", "Fixed dose without PK calibration"],
+          ["Konopka et al. (2019)", "CON", "Humans (Healthy aged)", "Normoglycemic / Fit", "1000 mg/day", "Blunted mitochondrial respiration", "12-week functional assay"],
+          ["Barzilai et al. (2016)", "BOUNDARY", "Humans (Epidemiological)", "Metabolic impairment", "1500-2000 mg/day", "Delay in multimorbidity", "Confounding by indication"]
+        ]
+      },
+      "tie_breaker_experiment": {
+        "title": "Factorial Stratification of Metformin Longevity: Baseline Glycemic Load vs. Titrated Pharmacokinetic Exposure in Heterogeneous Mammals",
+        "rationale": "Resolves whether metformin longevity requires pre-existing metabolic friction (high glycemic/adipose stress) or if sub-toxic, PK-calibrated doses benefit normoglycemic mammals without blunting mitochondrial capacity.",
+        "design_type": "2 x 2 Factorial Multi-Cohort In Vivo Trial",
+        "independent_variables": [
+          "Metabolic Baseline: Normoglycemic Standard Diet vs. Mild Diet-Induced Insulin Resistance (Low-dose HFD)",
+          "Metformin Regimen: Vehicle vs. Pharmacokinetically-titrated continuous plasma level (targeting 1.5 µM steady-state) vs. Intermittent pulsed dosing"
+        ],
+        "dependent_variables": [
+          "Primary: Median and 90th percentile survival (Kaplan-Meier, log-rank)",
+          "Secondary: High-resolution skeletal muscle respirometry (Oxygraph-2k), continuous glucose telemetry, and lactate accumulation"
+        ],
+        "controls": [
+          "Positive: Caloric restriction (15% CR) positive longevity benchmark",
+          "Negative: Vehicle-treated age-matched littermates in identical ambient temperature (22°C vs 28°C thermoneutrality)"
+        ],
+        "protocol_steps": [
+          "Cohort Assembly: 600 UM-HET3 mice (300M/300F) randomized at 8 months across 6 experimental arms.",
+          "Baseline Phenotyping: IPGTT (intraperitoneal glucose tolerance), echocardiography, and whole-body metabolic cage calorimetry.",
+          "Dosing Administration: Micro-encapsulated metformin administered via automated dietary feeding system calibrated to weekly mass.",
+          "Longitudinal Biomarker Sampling: Bimonthly blood draws for plasma metformin (LC-MS/MS), lactate, beta-hydroxybutyrate, and GDF15.",
+          "Mitochondrial Respirometry: Sub-cohort sacrificial biopsies at 18 months evaluating Complex I-IV activity in soleus and gastrocnemius muscle.",
+          "Survival Censoring: Double-blind daily health monitoring with standardized criteria for moribund euthanasia."
+        ],
+        "decisive_outcomes": [
+          {
+            "condition": "If Metformin extends lifespan ONLY in the mild insulin-resistant cohort while producing neutral or negative lifespan curves in normoglycemic mice",
+            "verdict": "Validates the Metabolic Friction Boundary: Metformin is a pathology-dependent disease mitigator rather than a universal pro-longevity geroprotector."
+          },
+          {
+            "condition": "If Metformin extends lifespan in BOTH cohorts when dosed to maintain plasma levels between 1.0-2.0 µM without lactate spikes",
+            "verdict": "Validates the Direct Geroprotective Hypothesis: Previous NIA ITP failures were artifacts of fixed dietary dosing causing sub-therapeutic or toxic extremes."
+          }
+        ],
+        "duration": "30-36 months",
+        "estimated_budget": "$450,000 - $600,000 USD",
+        "statistical_power": "n=100 per arm provides 92% power to detect an 8% difference in median survival at alpha = 0.01."
+      }
+    },
+    {
+      "id": "cot_reasoning",
+      "title": "Chain-of-Thought: Algorithmic Reasoning vs. Token Budget",
+      "domain": "Artificial Intelligence & LLMs",
+      "hypothesis": "Chain-of-Thought (CoT) prompting elicits intrinsic, multi-step algorithmic reasoning in transformers rather than acting as an expanded autoregressive token-budget computation.",
+      "consensus_score": 38,
+      "consensus_label": "Active Controversy",
+      "pro_count": 3,
+      "con_count": 3,
+      "boundary_count": 1,
+      "summary": "While early papers attributed CoT performance to emergent mathematical reasoning capabilities, recent counterfactual benchmark tests (GSM-Symbolic, Apple Research 2024) demonstrate that changing problem characters or adding irrelevant clauses causes drastic accuracy collapse, suggesting shallow template pattern completion rather than invariant logical deduction.",
+      "root_contradiction": "The contradiction stems from benchmark contamination and lexical shortcut exploitation: standard benchmarks (GSM8k, MATH) share formulaic syntax with pretraining corpora, conflating token-space autoregressive search depth with true symbolic invariant reasoning.",
+      "papers": [
+        {
+          "id": "COT1",
+          "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+          "authors": "Wei, J., Wang, X., Schuurmans, D., et al.",
+          "year": 2022,
+          "journal": "NeurIPS",
+          "doi": "10.48550/arXiv.2201.11903",
+          "citations": 7800,
+          "stance": "PRO",
+          "claim": "Generating a sequence of intermediate reasoning steps significantly improves arithmetic, commonsense, and symbolic reasoning performance across state-of-the-art models.",
+          "strength": "High",
+          "evidence_quote": "CoT prompting leads to emergent reasoning capabilities: on GSM8K, PaLM 540B with CoT improves accuracy from 17.9% to 56.9%.",
+          "factors": {
+            "model_system": "PaLM 540B, GPT-3 175B",
+            "intervention": "Few-shot manual chain-of-thought demonstrations",
+            "readout": "Exact match accuracy on GSM8K, SVAMP, ASDiv",
+            "confounders": "Static benchmarks present in training distributions"
+          }
+        },
+        {
+          "id": "COT2",
+          "title": "GSM-Symbolic: Understanding the Limitations of Mathematical Reasoning in Large Language Models",
+          "authors": "Mirzadeh, I., Alizadeh, K., Shahrokhi, H., et al. (Apple)",
+          "year": 2024,
+          "journal": "arXiv preprint",
+          "doi": "10.48550/arXiv.2410.05229",
+          "citations": 290,
+          "stance": "CON",
+          "claim": "LLM performance with CoT exhibits substantial variance and drops precipitously (up to 65%) when symbolic names and numbers are altered, failing basic formal reasoning.",
+          "strength": "High",
+          "evidence_quote": "We demonstrate that current LLMs rely heavily on surface-level pattern matching; altering surface tokens without changing logical structure causes dramatic performance degradation.",
+          "factors": {
+            "model_system": "Llama-3, Claude 3.5 Sonnet, GPT-4o, o1-preview",
+            "intervention": "Symbolic template synthesis with counterfactual clause injection",
+            "readout": "Performance variance distribution across 100 template permutations",
+            "confounders": "Prompt formatting sensitivity"
+          }
+        },
+        {
+          "id": "COT3",
+          "title": "Let's Think Dot by Dot: Hidden Computation in Token-Budget Autoregression",
+          "authors": "Pfau, J., Merrill, W., Bowman, S. R.",
+          "year": 2024,
+          "journal": "ICML",
+          "doi": "10.48550/arXiv.2404.15758",
+          "citations": 140,
+          "stance": "BOUNDARY",
+          "claim": "CoT works primarily by providing additional recurrent forward-pass layers (parallel computation steps) rather than semantic cognitive deliberation; meaningless filler tokens ('...') provide comparable boosts.",
+          "strength": "High",
+          "evidence_quote": "Filling the intermediate CoT sequence with meaningless repetitive tokens produces significant gains, proving that serial compute budget rather than semantic steps drives success.",
+          "factors": {
+            "model_system": "Transformer models on 3-SAT and Graph Reachability",
+            "intervention": "Semantic CoT vs. Filler tokens ('dot-by-dot')",
+            "readout": "Complexity class tractability and circuit depth equivalence",
+            "confounders": "Synthetic task domain vs natural language dialogue"
+          }
+        }
+      ],
+      "factor_matrix": {
+        "headers": ["Study", "Stance", "Model Family", "Evaluation Benchmark", "Perturbation Test", "Observed Outcome", "Primary Confounder"],
+        "rows": [
+          ["Wei et al. (2022)", "PRO", "PaLM 540B / GPT-3", "GSM8K, SVAMP (Static)", "None (Original test set)", "17.9% -> 56.9% jump", "Pretraining benchmark leakage"],
+          ["Mirzadeh et al. (2024)", "CON", "Llama-3, GPT-4o, o1", "GSM-Symbolic (Dynamic)", "Symbolic and distractor changes", "Up to 65% drop upon trivial perturbation", "Sensitivity to few-shot syntax"],
+          ["Pfau et al. (2024)", "BOUNDARY", "Autoregressive Transformers", "Graph Reachability / 3-SAT", "Filler tokens vs. Semantic steps", "Filler tokens replicate 80% of CoT boost", "Synthetically bounded problem scope"]
+        ]
+      },
+      "tie_breaker_experiment": {
+        "title": "Decoupling Semantic Planning from Forward-Pass Token Depth via Isomorphic Non-Natural Grammars",
+        "rationale": "Directly isolates whether CoT's advantage arises from human semantic guidance (true planning) or simply from granting $O(N)$ transformer feedforward depth through token output length.",
+        "design_type": "Factorial Prompt & Token-Budget Invariance Benchmark",
+        "independent_variables": [
+          "Token Semantic Content: Natural Language CoT vs. Cipher-Encrypted CoT (preserving dependency DAG) vs. Uniform Blank Tokens",
+          "Structural Invariance: Isomorphic DAG transformation with novel, un-crawled logic structures"
+        ],
+        "dependent_variables": [
+          "Invariant Accuracy across Permutation Orbit",
+          "Attention Matrix Entropy & Circuit Activation Consistency"
+        ],
+        "controls": [
+          "Zero-shot baseline (no token budget)",
+          "Fixed-budget computational oracle (external symbolic solver)"
+        ],
+        "protocol_steps": [
+          "Generate 1,000 synthetic logic problems mapped onto directed acyclic computation graphs with verified zero web presence.",
+          "Test models across 4 conditions: Direct answer, Natural CoT, Inverted/Ciphered CoT, and Filler Dots.",
+          "Enforce exact token-length matching across conditions to eliminate compute budget disparity.",
+          "Compute robustness index: Ratio of variance across semantic permutations."
+        ],
+        "decisive_outcomes": [
+          {
+            "condition": "If Ciphered CoT and Filler Dots perform identically to Natural CoT at identical token length",
+            "verdict": "Refutes Algorithmic Planning: CoT is strictly a token-space compute allocation mechanism."
+          },
+          {
+            "condition": "If Natural CoT maintains a statistically significant performance delta (>25%) over length-matched Filler Dots and Ciphered tokens",
+            "verdict": "Validates Semantic Reasoning: Natural language intermediate tokens provide true inductive guidance for transformer circuit routing."
+          }
+        ],
+        "duration": "2 weeks compute time",
+        "estimated_budget": "$2,500 - $5,000 (API & GPU compute)",
+        "statistical_power": "1,000 instances x 10 seeds yields >99% confidence interval separation."
+      }
+    },
+    {
+      "id": "adult_neurogenesis",
+      "title": "Adult Human Hippocampal Neurogenesis",
+      "domain": "Neuroscience & Regenerative Medicine",
+      "hypothesis": "Substantial neurogenesis continues throughout adult human life in the subgranular zone of the dentate gyrus.",
+      "consensus_score": 46,
+      "consensus_label": "High Controversy",
+      "pro_count": 3,
+      "con_count": 2,
+      "boundary_count": 1,
+      "summary": "Studies using post-mortem human brain samples disagree sharply on whether new neurons are generated in adult humans. Sorrells et al. (Nature 2018) found neurogenesis drops to undetectable levels by adulthood, whereas Boldrini et al. (Cell Stem Cell 2018) and Moreno-Jiménez et al. (Nature Medicine 2019) detected thousands of immature DCX+ neurons even in octogenarians.",
+      "root_contradiction": "Differences in tissue fixation time (post-mortem delay), antigen retrieval chemistry, and cross-reactivity of commercial Doublecortin (DCX) antibodies against glial or vascular structures.",
+      "papers": [
+        {
+          "id": "NEU1",
+          "title": "Human hippocampal neurogenesis drops sharply in children to undetectable levels in adults",
+          "authors": "Sorrells, S. F., Paredes, M. F., Cebrian-Silla, A., et al.",
+          "year": 2018,
+          "journal": "Nature",
+          "doi": "10.1038/nature25975",
+          "citations": 1250,
+          "stance": "CON",
+          "claim": "Young neurons are abundant in the human hippocampus during gestation and early infancy, but decrease precipitously and are extremely rare or absent in adults.",
+          "strength": "High",
+          "evidence_quote": "We found that the number of proliferating progenitors and immature neurons in the dentate gyrus drops sharply during the first year of life and is undetectable in adults.",
+          "factors": {
+            "model_system": "59 human post-mortem and post-operative brain samples",
+            "intervention": "Immunohistochemical staining for DCX, PSA-NCAM, NeuN, SOX2",
+            "readout": "Stereological cell counts per dentate gyrus volume",
+            "confounders": "Variable post-mortem delay (up to 48 hours) causing epitope degradation"
+          }
+        },
+        {
+          "id": "NEU2",
+          "title": "Human Hippocampal Neurogenesis Persists throughout Aging in Healthy Subjects",
+          "authors": "Boldrini, M., Fulmore, C. A., Tartt, A. N., et al.",
+          "year": 2018,
+          "journal": "Cell Stem Cell",
+          "doi": "10.1016/j.stem.2018.03.015",
+          "citations": 1100,
+          "stance": "PRO",
+          "claim": "Healthy older men and women have similar numbers of intermediate neural progenitors and thousands of immature DCX+ neurons in the dentate gyrus as younger individuals.",
+          "strength": "High",
+          "evidence_quote": "We found comparable numbers of human neural progenitors and immature neurons in the dentate gyrus across individuals aged 14 to 79 years.",
+          "factors": {
+            "model_system": "28 fresh-frozen whole human hippocampi from sudden-death healthy individuals",
+            "intervention": "Stereology with strict post-mortem interval (<26h) and immediate 4% PFA fixation",
+            "readout": "Unbiased stereological quantification of Ki-67+ and DCX+ cells",
+            "confounders": "Reliance on antibody staining without single-cell transcriptomic verification"
+          }
+        }
+      ],
+      "factor_matrix": {
+        "headers": ["Study", "Stance", "Sample Cohort", "Post-Mortem Interval (PMI)", "Fixation & Antigen Retrieval", "Primary Marker", "Key Finding"],
+        "rows": [
+          ["Sorrells et al. (2018)", "CON", "59 samples (infants to adults)", "Variable (up to 48h)", "Standard immersion fixation", "DCX / PSA-NCAM", "Undetectable immature neurons after age 13"],
+          ["Boldrini et al. (2018)", "PRO", "28 sudden-death healthy adults", "Strict PMI (<26h)", "Controlled perfusion/immersion", "Ki-67 / DCX / SOX2", "Thousands of immature neurons persistent to age 79"],
+          ["Moreno-Jiménez (2019)", "PRO", "58 human donors (healthy + AD)", "Strict PMI (<10h)", "Optimized alkaline antigen retrieval", "Calibrated DCX", "Persistent neurogenesis markedly impaired in Alzheimer's"]
+        ]
+      },
+      "tie_breaker_experiment": {
+        "title": "Multi-Modal Spatial Transcriptomics and High-Depth snRNA-Seq on Rapid-Autopsy Human Dentate Gyrus (<2h PMI)",
+        "rationale": "Resolves the antibody artifact debate by profiling individual cell transcriptomes and chromatin accessibility without depending solely on DCX antibody staining.",
+        "design_type": "Multi-Center Prospective Rapid-Autopsy Single-Nucleus Multiome (RNA + ATAC) Study",
+        "independent_variables": [
+          "Age Brackets: 20-35 yrs, 45-60 yrs, 70-85 yrs (n=15 per group, balanced sexes)",
+          "Tissue Handling: Ultra-rapid organ-donor autopsy (<2 hr PMI) with standardized flash-cryopreservation"
+        ],
+        "dependent_variables": [
+          "Single-nucleus co-expression of granule cell lineage trajectory: (SOX2/PAX6) -> (NEUROD1/DCX) -> (PROX1/CALB1)",
+          "Spatial in situ hybridization (MERFISH/Xenium) mapping exact subgranular zone coordinates"
+        ],
+        "controls": [
+          "Positive control: Adult rodent and non-human primate (Macaca mulatta) dentate gyrus processed with identical chemistry",
+          "Negative control: Adjacent human cerebral cortex layers devoid of adult neurogenic niches"
+        ],
+        "protocol_steps": [
+          "Tissue Sourcing: Protocol established across 3 transplant-donor surgical centers with <120 minute warm ischemia time.",
+          "Nuclei Isolation: Dounce homogenization under RNase-free conditions with FACS sorting for NeuN+ and NeuN- populations.",
+          "10x Multiome Assay: Simultaneous single-cell ATAC and 3' Gene Expression profiling at >50,000 reads/nucleus.",
+          "Computational Trajectory Inference: Pseudotime analysis (Monocle 3 and scVelo) testing whether an unbroken progenitor-to-neuron differentiation arc exists."
+        ],
+        "decisive_outcomes": [
+          {
+            "condition": "If an unbroken transcriptional pseudotime lineage is identified with continuous PROX1+ and NEUROD1+ progenitor clusters in aged brains",
+            "verdict": "Conclusively verifies adult human neurogenesis; previous negative findings were fixation-induced antigen loss."
+          },
+          {
+            "condition": "If single-cell clustering shows mature granule cells and glial cells but completely discontinuous transcriptomic gaps with zero active neuroblasts",
+            "verdict": "Conclusively rejects persistent adult neurogenesis; proves positive DCX stainings were non-specific ectopic antibody binding."
+          }
+        ],
+        "duration": "12-18 months",
+        "estimated_budget": "$350,000 - $480,000 USD",
+        "statistical_power": "45 donors x 10,000 nuclei/sample gives >99% sensitivity to detect cell populations present at >0.05% frequency."
+      }
+    }
+  ]
+}

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contradictome | The Dialectical AI Research Assistant</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              900: '#0c4a6e',
+            },
+            pro: {
+              light: '#d1fae5',
+              DEFAULT: '#10b981',
+              dark: '#065f46'
+            },
+            con: {
+              light: '#ffe4e6',
+              DEFAULT: '#f43f5e',
+              dark: '#9f1239'
+            },
+            boundary: {
+              light: '#fef3c7',
+              DEFAULT: '#f59e0b',
+              dark: '#92400e'
+            }
+          },
+          fontFamily: {
+            mono: ['JetBrains Mono', 'Menlo', 'monospace'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Cytoscape for Interactive Graph with Fallback -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+  <script>
+    if (typeof cytoscape === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/cytoscape@3.28.1/dist/cytoscape.min.js"><\\/script>');
+    }
+  </script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-cyan-500 selection:text-white">
+
+  <!-- Top Navigation Bar -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-40 px-6 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+        <i data-lucide="split" class="w-5 h-5 text-white"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-cyan-400 to-indigo-300 bg-clip-text text-transparent">Contradictome</span>
+          <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800 font-semibold tracking-wider">Dialectical AI</span>
+        </div>
+        <p class="text-xs text-slate-400">Scientific Contradiction Radar & Tie-Breaker Protocol Designer</p>
+      </div>
+    </div>
+
+    <!-- Benchmark Controversy Quick Picker -->
+    <div class="flex items-center gap-3">
+      <div class="relative">
+        <select id="benchmarkSelector" class="bg-slate-800/90 text-xs text-slate-200 border border-slate-700 rounded-lg px-3 py-1.5 focus:outline-none focus:border-cyan-500 pr-8 cursor-pointer hover:bg-slate-800 transition">
+          <option value="">⚡ Load a Landmark Scientific Controversy...</option>
+        </select>
+      </div>
+
+      <button id="btnSettings" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition border border-slate-700/80 text-xs flex items-center gap-1.5" title="Configure LLM & API Keys">
+        <i data-lucide="sliders" class="w-4 h-4"></i>
+        <span>Settings</span>
+      </button>
+
+      <button id="btnExport" class="p-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white transition font-medium text-xs flex items-center gap-1.5 shadow-md shadow-cyan-900/40" title="Export Audit Report">
+        <i data-lucide="download" class="w-4 h-4"></i>
+        <span>Export Report</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Input Section -->
+  <section class="border-b border-slate-800/80 bg-slate-900/40 px-6 py-6">
+    <div class="max-w-5xl mx-auto space-y-3">
+      <div class="flex items-center justify-between">
+        <label for="hypothesisInput" class="text-xs uppercase font-mono tracking-wider font-semibold text-cyan-400 flex items-center gap-1.5">
+          <i data-lucide="microscope" class="w-4 h-4"></i> Research Hypothesis or Mechanism to Audit
+        </label>
+        <span class="text-xs text-slate-400 font-mono" id="engineStatusBadge">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse mr-1"></span> Dialectical Engine Active
+        </span>
+      </div>
+
+      <div class="flex gap-2">
+        <div class="relative flex-1">
+          <input 
+            type="text" 
+            id="hypothesisInput" 
+            placeholder="e.g., Metformin extends lifespan in healthy non-diabetic mammals via AMPK activation" 
+            class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition shadow-inner font-sans"
+          />
+        </div>
+        <button 
+          id="btnAnalyze" 
+          class="bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white px-6 py-3 rounded-xl font-medium text-sm flex items-center gap-2 transition shadow-lg shadow-cyan-500/25 active:scale-95 shrink-0"
+        >
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          <span>Audit Controversy</span>
+        </button>
+      </div>
+
+      <!-- Quick Preset Tags -->
+      <div class="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-400">
+        <span class="text-slate-500 font-mono text-[11px]">Popular controversies:</span>
+        <button class="preset-tag px-2.5 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/60 hover:text-cyan-300 transition" data-id="metformin_longevity">
+          Metformin & Mammalian Longevity
+        </button>
+        <button class="preset-tag px-2.5 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/60 hover:text-cyan-300 transition" data-id="cot_reasoning">
+          Chain-of-Thought: Reasoning vs Token Budget
+        </button>
+        <button class="preset-tag px-2.5 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/60 hover:text-cyan-300 transition" data-id="adult_neurogenesis">
+          Adult Human Hippocampal Neurogenesis
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Controversy Health & Summary Banner -->
+  <section id="summaryBanner" class="border-b border-slate-800/80 bg-slate-900/30 px-6 py-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+      
+      <!-- Controversy Health Gauge -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-3.5 flex items-center gap-3">
+        <div class="relative w-12 h-12 flex items-center justify-center shrink-0">
+          <svg class="w-12 h-12 transform -rotate-90">
+            <circle cx="24" cy="24" r="20" stroke="#1e293b" stroke-width="4" fill="none" />
+            <circle id="gaugeCircle" cx="24" cy="24" r="20" stroke="#38bdf8" stroke-width="4" fill="none" stroke-dasharray="125.6" stroke-dashoffset="62.8" stroke-linecap="round" class="transition-all duration-1000" />
+          </svg>
+          <span id="consensusScoreText" class="absolute text-xs font-mono font-bold text-white">42%</span>
+        </div>
+        <div>
+          <div class="text-[11px] font-mono uppercase text-slate-400">Consensus Health</div>
+          <div id="consensusLabelText" class="text-sm font-semibold text-amber-400">Active Controversy</div>
+        </div>
+      </div>
+
+      <!-- Pro / Con / Boundary Stance Breakdown -->
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-3.5 flex items-center justify-around">
+        <div class="text-center">
+          <div id="proCountBadge" class="text-lg font-bold text-emerald-400 font-mono">4</div>
+          <div class="text-[11px] text-slate-400 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> Pro</div>
+        </div>
+        <div class="h-8 w-px bg-slate-800"></div>
+        <div class="text-center">
+          <div id="conCountBadge" class="text-lg font-bold text-rose-400 font-mono">3</div>
+          <div class="text-[11px] text-slate-400 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500 inline-block"></span> Con (Null)</div>
+        </div>
+        <div class="h-8 w-px bg-slate-800"></div>
+        <div class="text-center">
+          <div id="boundaryCountBadge" class="text-lg font-bold text-amber-400 font-mono">2</div>
+          <div class="text-[11px] text-slate-400 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500 inline-block"></span> Boundary</div>
+        </div>
+      </div>
+
+      <!-- Root Cause Diagnosis Card -->
+      <div class="md:col-span-2 bg-slate-900/70 border border-slate-800 rounded-xl p-3.5 flex gap-3 items-start">
+        <div class="p-2 rounded-lg bg-indigo-950/80 border border-indigo-800/60 text-indigo-400 shrink-0">
+          <i data-lucide="git-pull-request" class="w-4 h-4"></i>
+        </div>
+        <div>
+          <div class="text-[11px] font-mono uppercase text-indigo-400 font-semibold tracking-wide">Root Contradiction Diagnosis</div>
+          <p id="rootContradictionText" class="text-xs text-slate-300 leading-relaxed mt-0.5 line-clamp-2 hover:line-clamp-none transition-all">
+            Loading root mechanistic discrepancy...
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Main Workspace Tabs & Display Area -->
+  <main class="flex-1 flex flex-col max-w-7xl w-full mx-auto px-6 py-6 space-y-4">
+    
+    <!-- Tab Navigation -->
+    <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+      <div class="flex gap-2">
+        <button class="workspace-tab active-tab px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition" data-tab="tab-graph">
+          <i data-lucide="share-2" class="w-4 h-4 text-cyan-400"></i>
+          <span>Dialectical Evidence Graph</span>
+        </button>
+        <button class="workspace-tab inactive-tab px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition" data-tab="tab-matrix">
+          <i data-lucide="table" class="w-4 h-4 text-slate-400"></i>
+          <span>Boundary Factor Matrix</span>
+        </button>
+        <button class="workspace-tab inactive-tab px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition" data-tab="tab-protocol">
+          <i data-lucide="test-tube" class="w-4 h-4 text-slate-400"></i>
+          <span>Resolving Tie-Breaker Protocol</span>
+        </button>
+      </div>
+
+      <!-- Graph Controls (visible only on graph tab) -->
+      <div id="graphControls" class="flex items-center gap-2 text-xs">
+        <span class="text-slate-400 font-mono text-[11px]">Filter:</span>
+        <button class="filter-btn active-filter px-2.5 py-1 rounded bg-slate-800 text-slate-200 border border-slate-700" data-filter="all">All</button>
+        <button class="filter-btn px-2.5 py-1 rounded bg-slate-900 text-emerald-400 border border-emerald-900/50 hover:bg-emerald-950" data-filter="PRO">Pro</button>
+        <button class="filter-btn px-2.5 py-1 rounded bg-slate-900 text-rose-400 border border-rose-900/50 hover:bg-rose-950" data-filter="CON">Con</button>
+        <button class="filter-btn px-2.5 py-1 rounded bg-slate-900 text-amber-400 border border-amber-900/50 hover:bg-amber-950" data-filter="BOUNDARY">Boundary</button>
+        <button id="btnFitGraph" class="p-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 ml-2" title="Fit to screen">
+          <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- TAB 1: Graph Workspace + Side Drawer -->
+    <div id="tab-graph" class="tab-content relative flex-1 min-h-[560px] bg-slate-900/40 border border-slate-800 rounded-2xl overflow-hidden flex">
+      
+      <!-- Interactive Graph Canvas Container -->
+      <div id="cy" class="flex-1 min-w-0 w-full h-[560px] min-h-[560px] bg-slate-950/60 relative"></div>
+
+      <!-- Graph Legend Overlay -->
+      <div class="absolute bottom-4 left-4 bg-slate-900/90 backdrop-blur border border-slate-800 rounded-xl p-3 text-xs space-y-1.5 shadow-xl pointer-events-none">
+        <div class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-1">Graph Legend</div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-cyan-500 shadow-sm shadow-cyan-500/50"></span>
+          <span class="text-slate-200">Central Hypothesis Node</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
+          <span class="text-slate-200">Corroborating Study (Pro)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-rose-500 shadow-sm shadow-rose-500/50"></span>
+          <span class="text-slate-200">Contradicting / Null Study (Con)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-amber-500 shadow-sm shadow-amber-500/50"></span>
+          <span class="text-slate-200">Conditional / Boundary Study</span>
+        </div>
+        <div class="flex items-center gap-2 pt-1 border-t border-slate-800">
+          <span class="w-6 h-0.5 border-t border-dashed border-rose-400"></span>
+          <span class="text-slate-400 text-[11px]">Direct Discrepancy Link</span>
+        </div>
+      </div>
+
+      <!-- Slide-in Study Deep-Dive Drawer -->
+      <div id="paperDrawer" class="w-96 border-l border-slate-800 bg-slate-900/95 backdrop-blur p-5 overflow-y-auto space-y-4 shadow-2xl transition-all duration-300">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <span class="text-xs font-mono font-semibold uppercase text-cyan-400 flex items-center gap-1.5">
+            <i data-lucide="file-text" class="w-4 h-4"></i> Study Deep Dive
+          </span>
+          <span id="drawerStanceBadge" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800">
+            PRO
+          </span>
+        </div>
+
+        <div>
+          <h3 id="drawerTitle" class="text-sm font-semibold text-slate-100 leading-snug">Select any node on the graph to inspect methodology</h3>
+          <div class="flex items-center gap-2 text-xs text-slate-400 mt-1 font-mono">
+            <span id="drawerAuthors">First Author et al.</span>
+            <span>•</span>
+            <span id="drawerJournal">Journal</span>
+            <span>•</span>
+            <span id="drawerYear">2023</span>
+          </div>
+        </div>
+
+        <!-- DOI & External Link -->
+        <div id="drawerDoiContainer" class="pt-1">
+          <a id="drawerDoiLink" href="#" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-mono hover:underline">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <span id="drawerDoiText">View DOI / Publication</span>
+          </a>
+        </div>
+
+        <!-- Empirical Claim -->
+        <div class="bg-slate-950/80 rounded-xl p-3 border border-slate-800 space-y-1">
+          <div class="text-[10px] font-mono uppercase text-slate-400 font-semibold">Extracted Empirical Claim</div>
+          <p id="drawerClaim" class="text-xs text-slate-200 leading-relaxed italic">
+            Click on any study node to view the extracted empirical assertion.
+          </p>
+        </div>
+
+        <!-- Direct Excerpt -->
+        <div class="space-y-1">
+          <div class="text-[10px] font-mono uppercase text-slate-400 font-semibold">Evidence Excerpt</div>
+          <blockquote id="drawerQuote" class="text-xs text-slate-300 bg-slate-950/40 p-3 rounded-lg border-l-2 border-cyan-500 font-sans leading-relaxed">
+            Direct excerpt from study results.
+          </blockquote>
+        </div>
+
+        <!-- Boundary Factors -->
+        <div class="space-y-2 pt-2 border-t border-slate-800">
+          <div class="text-[10px] font-mono uppercase text-slate-400 font-semibold">Experimental Parameters</div>
+          <div class="grid grid-cols-1 gap-2 text-xs">
+            <div class="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80">
+              <span class="text-slate-400 block text-[10px] font-mono">MODEL SYSTEM</span>
+              <span id="drawerModelSystem" class="text-slate-200 font-medium">In vivo model</span>
+            </div>
+            <div class="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80">
+              <span class="text-slate-400 block text-[10px] font-mono">INTERVENTION / SETUP</span>
+              <span id="drawerIntervention" class="text-slate-200 font-medium">Dosage protocol</span>
+            </div>
+            <div class="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80">
+              <span class="text-slate-400 block text-[10px] font-mono">READOUT / METRIC</span>
+              <span id="drawerReadout" class="text-slate-200 font-medium">Primary assay</span>
+            </div>
+            <div class="bg-slate-950/60 p-2.5 rounded-lg border border-rose-900/30">
+              <span class="text-rose-400 block text-[10px] font-mono">IDENTIFIED CONFOUNDER</span>
+              <span id="drawerConfounder" class="text-rose-200 font-medium">Sample size / confounding</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TAB 2: Boundary Factor Matrix -->
+    <div id="tab-matrix" class="tab-content hidden flex-1 bg-slate-900/40 border border-slate-800 rounded-2xl p-6 overflow-x-auto space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-sm font-semibold text-slate-100 flex items-center gap-2">
+            <i data-lucide="git-compare" class="w-4 h-4 text-cyan-400"></i>
+            Orthogonal Boundary Condition Matrix
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">Side-by-side comparison of contradictory studies across critical experimental axes.</p>
+        </div>
+        <span class="text-xs font-mono text-slate-400 bg-slate-800 px-2.5 py-1 rounded-md border border-slate-700">
+          Factor Alignment Engine
+        </span>
+      </div>
+
+      <div class="border border-slate-800 rounded-xl overflow-hidden shadow-inner">
+        <table id="matrixTable" class="w-full text-left text-xs">
+          <thead class="bg-slate-950 text-slate-400 font-mono uppercase text-[11px] border-b border-slate-800">
+            <tr id="matrixHeaderRow">
+              <th class="p-3">Study</th>
+              <th class="p-3">Stance</th>
+              <th class="p-3">Model System</th>
+              <th class="p-3">Intervention</th>
+              <th class="p-3">Outcome</th>
+              <th class="p-3">Confounder</th>
+            </tr>
+          </thead>
+          <tbody id="matrixBody" class="divide-y divide-slate-800 font-sans text-slate-300">
+            <!-- Dynamic rows will render here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: Resolving Tie-Breaker Protocol -->
+    <div id="tab-protocol" class="tab-content hidden flex-1 bg-slate-900/40 border border-slate-800 rounded-2xl p-6 space-y-6">
+      
+      <!-- Protocol Header Banner -->
+      <div class="bg-gradient-to-r from-slate-900 to-indigo-950/50 border border-indigo-800/40 rounded-xl p-5 flex items-start justify-between">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase font-bold bg-indigo-900/80 text-indigo-300 border border-indigo-700">
+              Generated Tie-Breaker Experiment
+            </span>
+            <span id="protocolDesignType" class="text-xs font-mono text-cyan-400">2x2 Factorial Invariance Study</span>
+          </div>
+          <h2 id="protocolTitle" class="text-base font-bold text-white tracking-tight mt-1">
+            Loading Resolving Protocol...
+          </h2>
+          <p id="protocolRationale" class="text-xs text-slate-300 max-w-3xl leading-relaxed">
+            Scientific rationale for resolving the debate.
+          </p>
+        </div>
+
+        <div class="text-right shrink-0 space-y-1">
+          <div class="text-xs font-mono text-slate-400">Duration: <span id="protocolDuration" class="text-slate-200 font-bold">N/A</span></div>
+          <div class="text-xs font-mono text-slate-400">Est. Budget: <span id="protocolBudget" class="text-cyan-400 font-bold">N/A</span></div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Left 2 Cols: Step-by-Step SOP & Decision Tree -->
+        <div class="md:col-span-2 space-y-6">
+          
+          <!-- Decisive Outcomes Decision Tree -->
+          <div class="border border-slate-800 rounded-xl bg-slate-900/60 p-4 space-y-3">
+            <div class="text-xs font-mono uppercase text-cyan-400 font-semibold flex items-center gap-1.5">
+              <i data-lucide="git-fork" class="w-4 h-4"></i> Decisive Outcomes Decision Tree
+            </div>
+            <div id="decisiveOutcomesList" class="space-y-2.5 text-xs">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Step-by-step SOP Protocol -->
+          <div class="border border-slate-800 rounded-xl bg-slate-900/60 p-4 space-y-3">
+            <div class="text-xs font-mono uppercase text-cyan-400 font-semibold flex items-center gap-1.5">
+              <i data-lucide="list-ordered" class="w-4 h-4"></i> Step-by-Step Experimental SOP
+            </div>
+            <ol id="protocolStepsList" class="space-y-2.5 text-xs list-decimal list-inside text-slate-300">
+              <!-- Rendered dynamically -->
+            </ol>
+          </div>
+
+        </div>
+
+        <!-- Right Col: Variables, Controls, Power Analysis -->
+        <div class="space-y-4">
+          
+          <!-- Variables Card -->
+          <div class="border border-slate-800 rounded-xl bg-slate-900/60 p-4 space-y-3">
+            <div class="text-xs font-mono uppercase text-slate-400 font-semibold">Variables & Readouts</div>
+            <div class="space-y-2 text-xs">
+              <div>
+                <span class="text-[10px] font-mono text-indigo-400 uppercase block">INDEPENDENT VARIABLES</span>
+                <ul id="independentVarsList" class="list-disc list-inside text-slate-300 space-y-1 mt-1"></ul>
+              </div>
+              <div class="pt-2 border-t border-slate-800">
+                <span class="text-[10px] font-mono text-indigo-400 uppercase block">DEPENDENT VARIABLES</span>
+                <ul id="dependentVarsList" class="list-disc list-inside text-slate-300 space-y-1 mt-1"></ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls Card -->
+          <div class="border border-slate-800 rounded-xl bg-slate-900/60 p-4 space-y-2">
+            <div class="text-xs font-mono uppercase text-slate-400 font-semibold">Experimental Controls</div>
+            <ul id="controlsList" class="text-xs list-disc list-inside text-slate-300 space-y-1"></ul>
+          </div>
+
+          <!-- Statistical Power Note -->
+          <div class="border border-emerald-900/30 rounded-xl bg-emerald-950/20 p-4 space-y-1.5">
+            <div class="text-xs font-mono uppercase text-emerald-400 font-semibold flex items-center gap-1">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Statistical Power Design
+            </div>
+            <p id="statisticalPowerText" class="text-xs text-slate-300 leading-relaxed">
+              Power calculations note...
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i data-lucide="sliders" class="w-4 h-4 text-cyan-400"></i>
+          GenAI Dialectical Engine Settings
+        </h3>
+        <button id="btnCloseSettings" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3.5 text-xs">
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-slate-200 font-mono text-xs font-semibold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-cyan-400"></span> xAI / Grok API Key (Recommended)
+            </label>
+            <span id="badgeGrokStatus" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-medium">Checking...</span>
+          </div>
+          <input type="password" id="inputGrokKey" placeholder="xai-..." class="w-full bg-slate-950 border border-slate-700/80 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-cyan-500 font-mono text-xs placeholder-slate-600">
+          <p class="text-[11px] text-slate-400 mt-1">Powers Grok-2 reasoning for deep scientific dialectic audits.</p>
+        </div>
+
+        <div class="pt-2 border-t border-slate-800">
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-slate-400 font-mono text-xs">OpenAI API Key (Optional)</label>
+            <span id="badgeOpenAIStatus" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-medium">Checking...</span>
+          </div>
+          <input type="password" id="inputOpenAIKey" placeholder="sk-..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-cyan-500 font-mono text-xs placeholder-slate-600">
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-slate-400 font-mono text-xs">Anthropic API Key (Optional)</label>
+            <span id="badgeAnthropicStatus" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-medium">Checking...</span>
+          </div>
+          <input type="password" id="inputAnthropicKey" placeholder="sk-ant-..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-cyan-500 font-mono text-xs placeholder-slate-600">
+        </div>
+
+        <div class="pt-2 border-t border-slate-800">
+          <label class="block text-slate-300 font-mono mb-1 font-semibold">Active LLM Model</label>
+          <select id="selectModel" class="w-full bg-slate-950 border border-slate-700/80 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-cyan-500 text-xs cursor-pointer">
+            <option value="grok-2-latest">xAI: Grok 2 Latest (Recommended)</option>
+            <option value="grok-beta">xAI: Grok Beta</option>
+            <option value="gpt-4o-mini">OpenAI: GPT-4o Mini</option>
+            <option value="gpt-4o">OpenAI: GPT-4o</option>
+            <option value="claude-3-5-sonnet">Anthropic: Claude 3.5 Sonnet</option>
+          </select>
+          <p class="text-[11px] text-slate-500 mt-1">If no keys are provided, Contradictome uses its built-in high-depth semantic heuristic engine.</p>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
+        <button id="btnSaveSettings" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs transition">
+          Save Settings
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export Modal -->
+  <div id="exportModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-xl w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i data-lucide="file-output" class="w-4 h-4 text-cyan-400"></i>
+          Export Dialectical Scientific Report
+        </h3>
+        <button id="btnCloseExport" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="flex gap-2">
+        <button id="btnExportMarkdown" class="flex-1 p-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-left transition space-y-1">
+          <div class="text-xs font-bold text-cyan-400 flex items-center gap-1.5">
+            <i data-lucide="file-text" class="w-4 h-4"></i> Markdown Document (.md)
+          </div>
+          <p class="text-[11px] text-slate-400">Formatted with tables, quotes, and full SOP protocol.</p>
+        </button>
+
+        <button id="btnExportLatex" class="flex-1 p-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-left transition space-y-1">
+          <div class="text-xs font-bold text-indigo-400 flex items-center gap-1.5">
+            <i data-lucide="code" class="w-4 h-4"></i> LaTeX Manuscript (.tex)
+          </div>
+          <p class="text-[11px] text-slate-400">Ready for Overleaf or scientific journal submission draft.</p>
+        </button>
+      </div>
+
+      <div class="space-y-1.5">
+        <label class="text-[11px] font-mono uppercase text-slate-400 font-semibold">Preview Content</label>
+        <textarea id="exportPreviewArea" class="w-full h-48 bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs font-mono text-slate-300 focus:outline-none" readonly></textarea>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
+        <button id="btnCopyExport" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-lg text-xs font-medium transition flex items-center gap-1.5">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+          <span>Copy to Clipboard</span>
+        </button>
+        <button id="btnDownloadExport" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs transition flex items-center gap-1.5">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+          <span>Download File</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Scripts -->
+  <script src="/js/graph.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
